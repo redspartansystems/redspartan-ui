@@ -1,0 +1,152 @@
+﻿@page "/buttons"
+@namespace RedSpartan.UI.Demo.Components.Pages
+@inject RedSpartan.UI.Services.IThemeService ThemeService
+
+<PageTitle>Buttons - RedSpartan UI</PageTitle>
+
+<h1>Button Component Demo</h1>
+<p style="margin-bottom: 2rem; color: var(--rs-text-secondary);">
+    Try clicking, hovering, and focusing on buttons to see the enhanced feedback system.
+    The theme toggle affects the entire application interface.
+</p>
+
+<div style="margin-bottom: 2rem; padding: 1rem; background: var(--rs-bg-secondary); border-radius: 8px;">
+    <h3 style="margin-top: 0;">Theme Control</h3>
+    <p style="color: var(--rs-text-secondary); margin-bottom: 1rem;">
+        This toggles between light and dark themes for the entire application
+    </p>
+    <RsButton OnClick="ToggleTheme" Variant="ButtonVariant.Ghost" class="theme-toggle">
+        Toggle Theme 🌓 (@currentTheme)
+    </RsButton>
+</div>
+
+<section style="margin-bottom: 3rem;">
+    <h2>Interactive Feedback Examples</h2>
+    <p style="color: var(--rs-text-secondary); margin-bottom: 1rem;">
+        Notice the hover lift, click scale, focus rings, and smooth transitions
+    </p>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+        <RsButton Variant="ButtonVariant.Primary" OnClick="HandlePrimaryClick">
+            Try Hover & Click
+        </RsButton>
+        <RsButton Variant="ButtonVariant.Secondary" OnClick="HandleSecondaryClick">
+            Focus with Tab
+        </RsButton>
+        <RsButton Variant="ButtonVariant.Success" OnClick="HandleSuccessClick">
+            Watch the Scale
+        </RsButton>
+        <RsButton Variant="ButtonVariant.Destructive" OnClick="HandleDestructiveClick">
+            See the Glow
+        </RsButton>
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>All Variants</h2>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+        <RsButton Variant="ButtonVariant.Primary">Primary</RsButton>
+        <RsButton Variant="ButtonVariant.Secondary">Secondary</RsButton>
+        <RsButton Variant="ButtonVariant.Ghost">Ghost</RsButton>
+        <RsButton Variant="ButtonVariant.Destructive">Destructive</RsButton>
+        <RsButton Variant="ButtonVariant.Success">Success</RsButton>
+        <RsButton Variant="ButtonVariant.Warning">Warning</RsButton>
+        <RsButton Variant="ButtonVariant.Link">Link Button</RsButton>
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>Sizes</h2>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; align-items: center; flex-wrap: wrap;">
+        <RsButton Size="ButtonSize.Small">Small</RsButton>
+        <RsButton Size="ButtonSize.Medium">Medium</RsButton>
+        <RsButton Size="ButtonSize.Large">Large</RsButton>
+        <RsButton Size="ButtonSize.ExtraLarge">Extra Large</RsButton>
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>States & Loading Demo</h2>
+    <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+        <RsButton>Normal State</RsButton>
+        <RsButton Disabled="true">Disabled (No Feedback)</RsButton>
+        <RsButton Loading="@isLoading" OnClick="HandleLoadingDemo">
+            @(isLoading ? "Loading..." : "Click to Load")
+        </RsButton>
+    </div>
+</section>
+
+@if (!string.IsNullOrEmpty(feedbackMessage))
+{
+    <div style="margin-top: 2rem; padding: 1rem; background: var(--rs-bg-secondary); border-radius: 8px; border-left: 4px solid #10b981;">
+        <strong>Feedback:</strong> @feedbackMessage
+    </div>
+}
+
+@code {
+    private bool isLoading = false;
+    private string currentTheme = "light";
+    private string feedbackMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentTheme = await ThemeService.GetThemeAsync();
+    }
+
+    private async Task ToggleTheme()
+    {
+        var newTheme = currentTheme == "dark" ? "light" : "dark";
+        await ThemeService.SetThemeAsync(newTheme);
+        currentTheme = newTheme;
+        StateHasChanged();
+        ShowFeedback($"Theme switched to {newTheme} mode!");
+    }
+
+    private async Task HandlePrimaryClick()
+    {
+        ShowFeedback("Primary button clicked!");
+    }
+
+    private async Task HandleSecondaryClick()
+    {
+        ShowFeedback("Secondary button clicked!");
+    }
+
+    private async Task HandleSuccessClick()
+    {
+        ShowFeedback("Success button clicked!");
+    }
+
+    private async Task HandleDestructiveClick()
+    {
+        ShowFeedback("Destructive button clicked!");
+    }
+
+    private async Task HandleLoadingDemo()
+    {
+        isLoading = true;
+        feedbackMessage = "Loading started...";
+        StateHasChanged();
+        
+        await Task.Delay(2500);
+        
+        isLoading = false;
+        feedbackMessage = "Loading completed!";
+        StateHasChanged();
+        
+        await Task.Delay(3000);
+        feedbackMessage = "";
+        StateHasChanged();
+    }
+
+    private void ShowFeedback(string message)
+    {
+        feedbackMessage = message;
+        StateHasChanged();
+        
+        Task.Delay(3000).ContinueWith(_ =>
+        {
+            feedbackMessage = "";
+            InvokeAsync(StateHasChanged);
+        });
+    }
+}

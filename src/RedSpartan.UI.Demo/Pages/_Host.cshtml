@@ -1,0 +1,8 @@
+﻿@page "/"
+@using RedSpartan.UI.Demo.Components
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+
+<component type="typeof(RedSpartan.UI.Demo.Components.App)" render-mode="ServerPrerendered" />

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
+    <PackageId>RedSpartan.UI</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>RedSpartan Systems</Authors>
+    <Description>Enterprise-focused Blazor UI framework</Description>
+    <PackageTags>blazor;ui;components;enterprise</PackageTags>
+    <RepositoryUrl>https://github.com/RedSpartanSystems/RedSpartan.UI</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\**" Pack="true" PackagePath="staticwebassets\" />
+  </ItemGroup>
+
+</Project>

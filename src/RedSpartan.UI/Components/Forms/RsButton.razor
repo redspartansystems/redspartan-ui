@@ -1,0 +1,59 @@
+﻿@namespace RedSpartan.UI.Components
+@using RedSpartan.UI.Types
+@inherits RedSpartanComponentBase
+
+<button class="@GetCssClasses()" 
+        type="@Type" 
+        disabled="@(Disabled || Loading)"
+        @onclick="HandleClick"
+        @attributes="AdditionalAttributes">
+    
+    @if (Loading)
+    {
+        <span class="rs-btn__spinner" aria-hidden="true"></span>
+    }
+    
+    @if (!string.IsNullOrEmpty(LeftIcon) && !Loading)
+    {
+        <i class="rs-btn__icon rs-btn__icon--left @LeftIcon" aria-hidden="true"></i>
+    }
+    
+    <span class="rs-btn__content">@ChildContent</span>
+    
+    @if (!string.IsNullOrEmpty(RightIcon) && !Loading)
+    {
+        <i class="rs-btn__icon rs-btn__icon--right @RightIcon" aria-hidden="true"></i>
+    }
+</button>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Medium;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool Loading { get; set; }
+    [Parameter] public string? LeftIcon { get; set; }
+    [Parameter] public string? RightIcon { get; set; }
+    [Parameter] public string Type { get; set; } = "button";
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] 
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string GetCssClasses()
+    {
+        var classes = new List<string> { "rs-btn" };
+        classes.Add($"rs-btn--{Variant.ToString().ToLower()}");
+        classes.Add($"rs-btn--{Size.ToString().ToLower()}");
+        
+        if (Disabled) classes.Add("rs-btn--disabled");
+        if (Loading) classes.Add("rs-btn--loading");
+        
+        return string.Join(" ", classes);
+    }
+    
+    private async Task HandleClick(MouseEventArgs args)
+    {
+        if (Disabled || Loading) return;
+        await OnClick.InvokeAsync(args);
+    }
+}
