@@ -1,0 +1,135 @@
+/* =============================================================================
+   Button Component Styles
+   ============================================================================= */
+
+.rs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--rs-space-2);
+  border: none;
+  border-radius: var(--rs-radius-md);
+  font-family: var(--rs-font-sans);
+  font-weight: var(--rs-font-medium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.rs-btn:hover:not(:disabled):not(.rs-btn--disabled):not(.rs-btn--loading) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.rs-btn:active:not(:disabled):not(.rs-btn--disabled):not(.rs-btn--loading) {
+  transform: translateY(0) scale(0.98);
+}
+
+.rs-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  z-index: 1;
+}
+
+/* Sizes */
+.rs-btn--small {
+  height: 2rem;
+  padding: 0 var(--rs-space-3);
+  font-size: var(--rs-text-sm);
+}
+
+.rs-btn--medium {
+  height: 2.5rem;
+  padding: 0 var(--rs-space-4);
+  font-size: var(--rs-text-base);
+}
+
+.rs-btn--large {
+  height: 3rem;
+  padding: 0 var(--rs-space-5);
+  font-size: var(--rs-text-lg);
+}
+
+.rs-btn--extra-large {
+  height: 3.5rem;
+  padding: 0 var(--rs-space-6);
+  font-size: var(--rs-text-xl);
+}
+
+/* Variants */
+.rs-btn--primary { background-color: #3b82f6; color: white; }
+.rs-btn--primary:hover { background-color: #2563eb; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
+.rs-btn--primary:active { background-color: #1d4ed8; }
+
+.rs-btn--secondary { background-color: var(--rs-bg-secondary); color: var(--rs-text-primary); border: 1px solid var(--rs-border-color); }
+.rs-btn--secondary:hover { background-color: var(--rs-bg-tertiary); border-color: var(--rs-border-secondary); }
+.rs-btn--secondary:active { background-color: var(--rs-bg-quaternary); }
+
+.rs-btn--ghost { background-color: transparent; color: var(--rs-text-primary); }
+.rs-btn--ghost:hover { background-color: var(--rs-bg-secondary); }
+.rs-btn--ghost:active { background-color: var(--rs-bg-tertiary); }
+
+.rs-btn--destructive { background-color: #ef4444; color: white; }
+.rs-btn--destructive:hover { background-color: #dc2626; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+.rs-btn--destructive:active { background-color: #b91c1c; }
+
+.rs-btn--success { background-color: #10b981; color: white; }
+.rs-btn--success:hover { background-color: #059669; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+.rs-btn--success:active { background-color: #047857; }
+
+.rs-btn--warning { background-color: #f59e0b; color: white; }
+.rs-btn--warning:hover { background-color: #d97706; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); }
+.rs-btn--warning:active { background-color: #b45309; }
+
+.rs-btn--link { background-color: transparent; color: #3b82f6; text-decoration: underline; padding: 0; height: auto; }
+.rs-btn--link:hover { color: #2563eb; text-decoration: none; transform: none; box-shadow: none; }
+.rs-btn--link:active { color: #1d4ed8; transform: none; }
+
+/* Disabled and loading states */
+.rs-btn--disabled,
+.rs-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.rs-btn--loading { cursor: not-allowed; }
+.rs-btn--loading .rs-btn__content { opacity: 0.7; }
+
+/* Content & icons */
+.rs-btn__content { display: flex; align-items: center; gap: inherit; }
+.rs-btn__icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.rs-btn__icon--left { margin-right: calc(var(--rs-space-1) * -1); }
+.rs-btn__icon--right { margin-left: calc(var(--rs-space-1) * -1); }
+
+/* Spinner */
+.rs-btn__spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: rs-spin 1s linear infinite;
+  margin-right: var(--rs-space-1);
+}
+
+@keyframes rs-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Dark theme adjustments */
+:root[data-theme='dark'] .rs-btn--primary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+:root[data-theme='dark'] .rs-btn--secondary:hover { background-color: var(--rs-bg-tertiary); }
+:root[data-theme='dark'] .rs-btn--ghost:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+/* Demo special button */
+.theme-toggle { font-size: var(--rs-text-lg) !important; }
+.theme-toggle:hover { transform: scale(1.05) !important; }

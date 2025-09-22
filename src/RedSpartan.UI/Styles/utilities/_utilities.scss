@@ -1,0 +1,65 @@
+// =============================================================================
+// _utilities.scss - Utility Classes
+// =============================================================================
+
+// Spacing Utilities
+.rs-m-0 { margin: var(--rs-space-0); }
+.rs-m-1 { margin: var(--rs-space-1); }
+.rs-m-2 { margin: var(--rs-space-2); }
+.rs-m-3 { margin: var(--rs-space-3); }
+.rs-m-4 { margin: var(--rs-space-4); }
+.rs-m-6 { margin: var(--rs-space-6); }
+.rs-m-8 { margin: var(--rs-space-8); }
+
+.rs-p-0 { padding: var(--rs-space-0); }
+.rs-p-1 { padding: var(--rs-space-1); }
+.rs-p-2 { padding: var(--rs-space-2); }
+.rs-p-3 { padding: var(--rs-space-3); }
+.rs-p-4 { padding: var(--rs-space-4); }
+.rs-p-6 { padding: var(--rs-space-6); }
+.rs-p-8 { padding: var(--rs-space-8); }
+
+// Border Radius
+.rs-rounded-none { border-radius: var(--rs-radius-none); }
+.rs-rounded-sm { border-radius: var(--rs-radius-sm); }
+.rs-rounded { border-radius: var(--rs-radius-base); }
+.rs-rounded-md { border-radius: var(--rs-radius-md); }
+.rs-rounded-lg { border-radius: var(--rs-radius-lg); }
+.rs-rounded-xl { border-radius: var(--rs-radius-xl); }
+.rs-rounded-full { border-radius: var(--rs-radius-full); }
+
+// Shadows
+.rs-shadow-none { box-shadow: var(--rs-shadow-none); }
+.rs-shadow-sm { box-shadow: var(--rs-shadow-sm); }
+.rs-shadow { box-shadow: var(--rs-shadow-base); }
+.rs-shadow-md { box-shadow: var(--rs-shadow-md); }
+.rs-shadow-lg { box-shadow: var(--rs-shadow-lg); }
+.rs-shadow-xl { box-shadow: var(--rs-shadow-xl); }
+
+// Transitions
+.rs-transition-none { transition: var(--rs-transition-none); }
+.rs-transition { transition: var(--rs-transition-default); }
+.rs-transition-colors { transition: var(--rs-transition-colors); }
+.rs-transition-opacity { transition: var(--rs-transition-opacity); }
+.rs-transition-shadow { transition: var(--rs-transition-shadow); }
+.rs-transition-transform { transition: var(--rs-transition-transform); }
+
+// Display Utilities
+.rs-hidden { display: none; }
+.rs-block { display: block; }
+.rs-inline { display: inline; }
+.rs-inline-block { display: inline-block; }
+.rs-flex { display: flex; }
+.rs-inline-flex { display: inline-flex; }
+.rs-grid { display: grid; }
+
+// Flexbox Utilities
+.rs-flex-row { flex-direction: row; }
+.rs-flex-col { flex-direction: column; }
+.rs-justify-start { justify-content: flex-start; }
+.rs-justify-center { justify-content: center; }
+.rs-justify-between { justify-content: space-between; }
+.rs-justify-end { justify-content: flex-end; }
+.rs-items-start { align-items: flex-start; }
+.rs-items-center { align-items: center; }
+.rs-items-end { align-items: flex-end; }

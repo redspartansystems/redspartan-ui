@@ -1,0 +1,199 @@
+﻿@namespace RedSpartan.UI.Components
+@using RedSpartan.UI.Types
+@inherits RedSpartanComponentBase
+
+<div class="rs-input-wrapper @GetWrapperClasses()">
+    @if (!string.IsNullOrEmpty(Label))
+    {
+        <label for="@ComponentId" class="rs-input-wrapper__label">
+            @Label
+            @if (Required)
+            {
+                <span class="rs-input-wrapper__required">*</span>
+            }
+        </label>
+    }
+    
+    <div class="rs-input-wrapper__field-wrapper">
+        @if (!string.IsNullOrEmpty(LeftIcon))
+        {
+            <span class="rs-input-wrapper__icon rs-input-wrapper__icon--left">
+                <i class="@LeftIcon" aria-hidden="true"></i>
+            </span>
+        }
+        
+        <input id="@ComponentId"
+               type="@GetHtmlInputType()"
+               class="rs-input @GetInputClasses()"
+               placeholder="@Placeholder"
+               value="@Value"
+               disabled="@Disabled"
+               readonly="@ReadOnly"
+               @oninput="HandleInput"
+               @onfocus="HandleFocus"
+               @onblur="HandleBlur"
+               @onkeypress="HandleKeyPress"
+               @attributes="AdditionalAttributes" />
+               
+        @if (!string.IsNullOrEmpty(RightIcon))
+        {
+            <span class="rs-input-wrapper__icon rs-input-wrapper__icon--right">
+                <i class="@RightIcon" aria-hidden="true"></i>
+            </span>
+        }
+        
+        @if (Type == InputType.Password && ShowPasswordToggle)
+        {
+            <button type="button" 
+                    class="rs-input-wrapper__password-toggle" 
+                    @onclick="TogglePasswordVisibility"
+                    tabindex="-1">
+                <i class="@(isPasswordVisible ? "fas fa-eye-slash" : "fas fa-eye")" aria-hidden="true"></i>
+            </button>
+        }
+    </div>
+    
+    @if (HasValidationMessages)
+    {
+        <div class="rs-input-wrapper__validation">
+            @foreach (var message in ValidationMessages)
+            {
+                <span class="rs-input-wrapper__error">@message</span>
+            }
+        </div>
+    }
+    
+    @if (!string.IsNullOrEmpty(HelpText) && !HasValidationMessages)
+    {
+        <span class="rs-input-wrapper__help">@HelpText</span>
+    }
+</div>
+
+@code {
+    [Parameter] public string Value { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public InputType Type { get; set; } = InputType.Text;
+    [Parameter] public InputSize Size { get; set; } = InputSize.Medium;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool ReadOnly { get; set; }
+    [Parameter] public bool Required { get; set; }
+    [Parameter] public string? LeftIcon { get; set; }
+    [Parameter] public string? RightIcon { get; set; }
+    [Parameter] public string? HelpText { get; set; }
+    [Parameter] public List<string> ValidationMessages { get; set; } = new();
+    [Parameter] public bool ShowPasswordToggle { get; set; } = true;
+    [Parameter] public EventCallback<FocusEventArgs> OnFocus { get; set; }
+    [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
+    [Parameter] public EventCallback<KeyboardEventArgs> OnKeyPress { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] 
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool isFocused = false;
+    private bool isPasswordVisible = false;
+    private InputState currentState = InputState.Normal;
+    
+    private bool HasValidationMessages => ValidationMessages.Any();
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UpdateInputState();
+    }
+    
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        UpdateInputState();
+    }
+    
+    private void UpdateInputState()
+    {
+        if (Disabled)
+            currentState = InputState.Disabled;
+        else if (HasValidationMessages)
+            currentState = InputState.Error;
+        else if (isFocused)
+            currentState = InputState.Focused;
+        else
+            currentState = InputState.Normal;
+    }
+    
+    private string GetWrapperClasses()
+    {
+        var classes = new List<string> { "rs-input-wrapper" };
+        
+        classes.Add($"rs-input-wrapper--{Size.ToString().ToLower()}");
+        classes.Add($"rs-input-wrapper--{currentState.ToString().ToLower()}");
+        
+        if (!string.IsNullOrEmpty(LeftIcon)) classes.Add("rs-input-wrapper--has-left-icon");
+        if (!string.IsNullOrEmpty(RightIcon)) classes.Add("rs-input-wrapper--has-right-icon");
+        if (Type == InputType.Password && ShowPasswordToggle) classes.Add("rs-input-wrapper--has-password-toggle");
+        
+        return string.Join(" ", classes);
+    }
+    
+    private string GetInputClasses()
+    {
+        var classes = new List<string>();
+        
+        classes.Add($"rs-input--{Size.ToString().ToLower()}");
+        classes.Add($"rs-input--{currentState.ToString().ToLower()}");
+        
+        return string.Join(" ", classes);
+    }
+    
+    private string GetHtmlInputType()
+    {
+        if (Type == InputType.Password && isPasswordVisible)
+            return "text";
+            
+        return Type switch
+        {
+            InputType.Text => "text",
+            InputType.Email => "email",
+            InputType.Password => "password",
+            InputType.Number => "number",
+            InputType.Tel => "tel",
+            InputType.Url => "url",
+            InputType.Search => "search",
+            _ => "text"
+        };
+    }
+    
+    private async Task HandleInput(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? string.Empty;
+        await ValueChanged.InvokeAsync(Value);
+        UpdateInputState();
+        StateHasChanged();
+    }
+    
+    private async Task HandleFocus(FocusEventArgs e)
+    {
+        isFocused = true;
+        UpdateInputState();
+        await OnFocus.InvokeAsync(e);
+        StateHasChanged();
+    }
+    
+    private async Task HandleBlur(FocusEventArgs e)
+    {
+        isFocused = false;
+        UpdateInputState();
+        await OnBlur.InvokeAsync(e);
+        StateHasChanged();
+    }
+    
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        await OnKeyPress.InvokeAsync(e);
+    }
+    
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+        StateHasChanged();
+    }
+}

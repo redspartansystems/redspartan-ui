@@ -15,8 +15,8 @@
     <p style="color: var(--rs-text-secondary); margin-bottom: 1rem;">
         This toggles between light and dark themes for the entire application
     </p>
-    <RsButton OnClick="ToggleTheme" Variant="ButtonVariant.Ghost" class="theme-toggle">
-        Toggle Theme 🌓 (@currentTheme)
+    <RsButton OnClick="ToggleTheme" Variant="ButtonVariant.Primary" class="theme-toggle">
+        🌓 Toggle Theme (@currentTheme)
     </RsButton>
 </div>
 
@@ -101,22 +101,22 @@
         ShowFeedback($"Theme switched to {newTheme} mode!");
     }
 
-    private async Task HandlePrimaryClick()
+    private void HandlePrimaryClick()
     {
         ShowFeedback("Primary button clicked!");
     }
 
-    private async Task HandleSecondaryClick()
+    private void HandleSecondaryClick()
     {
         ShowFeedback("Secondary button clicked!");
     }
 
-    private async Task HandleSuccessClick()
+    private void HandleSuccessClick()
     {
         ShowFeedback("Success button clicked!");
     }
 
-    private async Task HandleDestructiveClick()
+    private void HandleDestructiveClick()
     {
         ShowFeedback("Destructive button clicked!");
     }
