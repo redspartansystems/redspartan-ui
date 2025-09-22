@@ -1,37 +1,22 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using RedSpartan.UI.Services;
 
-namespace RedSpartan.UI.Components
+namespace RedSpartan.UI.Components;
+
+public abstract class RedSpartanComponentBase : ComponentBase
 {
-    public abstract class RedSpartanComponentBase : ComponentBase, IDisposable
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public string? CssClass { get; set; }
+    [Parameter] public string? Style { get; set; }
+    
+    protected string ComponentId => Id ?? $"rs-{Guid.NewGuid():N}";
+    
+    protected virtual string GetBaseCssClasses()
     {
-        protected string ComponentId { get; } = $"rs-{Guid.NewGuid():N}";
-        protected bool IsDarkTheme => ThemeService?.CurrentTheme == "dark";
+        var classes = new List<string>();
         
-        [Inject] protected IThemeService? ThemeService { get; set; }
-        [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
-        
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            if (ThemeService != null)
-            {
-                ThemeService.ThemeChanged += OnThemeChanged;
-            }
-        }
-        
-        private async void OnThemeChanged(string newTheme)
-        {
-            await InvokeAsync(StateHasChanged);
-        }
-        
-        public virtual void Dispose()
-        {
-            if (ThemeService != null)
-            {
-                ThemeService.ThemeChanged -= OnThemeChanged;
-            }
-        }
+        if (!string.IsNullOrEmpty(CssClass))
+            classes.Add(CssClass);
+            
+        return string.Join(" ", classes);
     }
 }
