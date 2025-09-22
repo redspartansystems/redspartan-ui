@@ -1,0 +1,238 @@
+﻿/* RedSpartan Input Component Styles - Converted from SCSS */
+
+.rs-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Label */
+.rs-input-wrapper__label {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--rs-space-1);
+  font-size: var(--rs-text-sm);
+  font-weight: var(--rs-font-medium);
+  color: var(--rs-text-primary);
+  transition: color 0.2s ease;
+}
+
+/* Required indicator */
+.rs-input-wrapper__required {
+  color: var(--rs-error-500);
+  margin-left: var(--rs-space-1);
+}
+
+/* Field wrapper for positioning icons */
+.rs-input-wrapper__field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Base input styles */
+.rs-input {
+  width: 100%;
+  border: 2px solid var(--rs-border-color);
+  border-radius: var(--rs-radius-md);
+  background-color: var(--rs-bg-primary);
+  color: var(--rs-text-primary);
+  font-family: var(--rs-font-sans);
+  font-size: var(--rs-text-base);
+  font-weight: var(--rs-font-normal);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+/* Placeholder styling */
+.rs-input::placeholder {
+  color: var(--rs-text-muted);
+  opacity: 1;
+}
+
+/* Size variants */
+.rs-input--small {
+  height: 2rem;
+  padding: 0 var(--rs-space-3);
+  font-size: var(--rs-text-sm);
+}
+
+.rs-input--medium {
+  height: 2.5rem;
+  padding: 0 var(--rs-space-4);
+  font-size: var(--rs-text-base);
+}
+
+.rs-input--large {
+  height: 3rem;
+  padding: 0 var(--rs-space-5);
+  font-size: var(--rs-text-lg);
+}
+
+/* State variants */
+.rs-input--normal {
+  border-color: var(--rs-border-color);
+}
+
+.rs-input--normal:hover {
+  border-color: var(--rs-border-secondary);
+  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+}
+
+.rs-input--focused,
+.rs-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.rs-input--error {
+  border-color: var(--rs-error-500);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.rs-input--disabled,
+.rs-input:disabled {
+  background-color: var(--rs-bg-tertiary);
+  color: var(--rs-text-muted);
+  cursor: not-allowed;
+  border-color: var(--rs-border-color);
+}
+
+.rs-input--disabled::placeholder,
+.rs-input:disabled::placeholder {
+  color: var(--rs-text-muted);
+}
+
+/* Icon styling */
+.rs-input-wrapper__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rs-text-secondary);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rs-input-wrapper__icon--left {
+  left: var(--rs-space-3);
+}
+
+.rs-input-wrapper__icon--right {
+  right: var(--rs-space-3);
+}
+
+/* Adjust padding when icons are present */
+.rs-input-wrapper--has-left-icon .rs-input.rs-input--small {
+  padding-left: calc(var(--rs-space-3) * 2 + 1rem);
+}
+
+.rs-input-wrapper--has-left-icon .rs-input.rs-input--medium {
+  padding-left: calc(var(--rs-space-4) * 2 + 1rem);
+}
+
+.rs-input-wrapper--has-left-icon .rs-input.rs-input--large {
+  padding-left: calc(var(--rs-space-5) * 2 + 1rem);
+}
+
+.rs-input-wrapper--has-right-icon .rs-input.rs-input--small,
+.rs-input-wrapper--has-password-toggle .rs-input.rs-input--small {
+  padding-right: calc(var(--rs-space-3) * 2 + 1rem);
+}
+
+.rs-input-wrapper--has-right-icon .rs-input.rs-input--medium,
+.rs-input-wrapper--has-password-toggle .rs-input.rs-input--medium {
+  padding-right: calc(var(--rs-space-4) * 2 + 1rem);
+}
+
+.rs-input-wrapper--has-right-icon .rs-input.rs-input--large,
+.rs-input-wrapper--has-password-toggle .rs-input.rs-input--large {
+  padding-right: calc(var(--rs-space-5) * 2 + 1rem);
+}
+
+/* Password toggle button */
+.rs-input-wrapper__password-toggle {
+  position: absolute;
+  right: var(--rs-space-3);
+  background: none;
+  border: none;
+  padding: var(--rs-space-1);
+  cursor: pointer;
+  color: var(--rs-text-secondary);
+  border-radius: var(--rs-radius-sm);
+  transition: color 0.2s ease, background-color 0.2s ease;
+  z-index: 2;
+}
+
+.rs-input-wrapper__password-toggle:hover {
+  color: var(--rs-text-primary);
+  background-color: var(--rs-bg-secondary);
+}
+
+.rs-input-wrapper__password-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* Validation messages */
+.rs-input-wrapper__validation {
+  margin-top: var(--rs-space-1);
+}
+
+.rs-input-wrapper__error {
+  display: block;
+  font-size: var(--rs-text-sm);
+  color: var(--rs-error-500);
+  margin-bottom: var(--rs-space-1);
+}
+
+.rs-input-wrapper__error:last-child {
+  margin-bottom: 0;
+}
+
+/* Help text */
+.rs-input-wrapper__help {
+  display: block;
+  margin-top: var(--rs-space-1);
+  font-size: var(--rs-text-sm);
+  color: var(--rs-text-secondary);
+}
+
+/* Focus state adjustments */
+.rs-input-wrapper--focused .rs-input-wrapper__label {
+  color: #3b82f6;
+}
+
+.rs-input-wrapper--focused .rs-input-wrapper__icon {
+  color: #3b82f6;
+}
+
+/* Error state adjustments */
+.rs-input-wrapper--error .rs-input-wrapper__label {
+  color: var(--rs-error-500);
+}
+
+.rs-input-wrapper--error .rs-input-wrapper__icon {
+  color: var(--rs-error-500);
+}
+
+/* Disabled state adjustments */
+.rs-input-wrapper--disabled .rs-input-wrapper__label {
+  color: var(--rs-text-muted);
+}
+
+.rs-input-wrapper--disabled .rs-input-wrapper__icon {
+  color: var(--rs-text-muted);
+}
+
+/* Dark theme adjustments */
+:root[data-theme='dark'] .rs-input--focused,
+:root[data-theme='dark'] .rs-input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+:root[data-theme='dark'] .rs-input-wrapper--focused .rs-input-wrapper__label,
+:root[data-theme='dark'] .rs-input-wrapper--focused .rs-input-wrapper__icon {
+  color: #60a5fa;
+}

@@ -1,0 +1,67 @@
+﻿@page "/inputs"
+@namespace RedSpartan.UI.Demo.Components.Pages
+
+<PageTitle>Inputs - RedSpartan UI</PageTitle>
+
+<h1>Input Component Demo</h1>
+<p style="margin-bottom: 2rem;">RedSpartan input fields with validation, icons, and states.</p>
+
+<section style="margin-bottom: 2rem;">
+    <h2>Basic Examples</h2>
+    <div style="display: grid; gap: 1rem; max-width: 400px;">
+        <RsInput @bind-Value="basicText" Label="Text Input" Placeholder="Enter text..." />
+
+        <RsInput @bind-Value="emailValue" Type="InputType.Email" Label="Email" Placeholder="user@example.com" />
+
+        <RsInput @bind-Value="passwordValue" Type="InputType.Password" Label="Password" Placeholder="Enter password" />
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>With Icons</h2>
+    <div style="display: grid; gap: 1rem; max-width: 400px;">
+        <RsInput @bind-Value="userInput" Label="Username" Placeholder="Enter username" LeftIcon="fas fa-user" />
+
+        <RsInput @bind-Value="searchInput" Type="InputType.Search" Label="Search" Placeholder="Search..."
+            LeftIcon="fas fa-search" />
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>States</h2>
+    <div style="display: grid; gap: 1rem; max-width: 400px;">
+        <RsInput @bind-Value="normalInput" Label="Normal" Placeholder="Click to focus" />
+
+        <RsInput @bind-Value="disabledInput" Label="Disabled" Placeholder="Cannot interact" Disabled="true" />
+
+        <RsInput @bind-Value="errorInput" Label="With Error" Placeholder="Has validation error"
+            ValidationMessages="@errorMessages" />
+    </div>
+</section>
+
+<section style="margin-bottom: 2rem;">
+    <h2>Sizes</h2>
+    <div style="display: grid; gap: 1rem; max-width: 400px;">
+        <RsInput @bind-Value="smallInput" Size="InputSize.Small" Label="Small" Placeholder="Small input" />
+
+        <RsInput @bind-Value="mediumInput" Size="InputSize.Medium" Label="Medium" Placeholder="Medium input" />
+
+        <RsInput @bind-Value="largeInput" Size="InputSize.Large" Label="Large" Placeholder="Large input" />
+    </div>
+</section>
+
+@code {
+    private string basicText = "";
+    private string emailValue = "";
+    private string passwordValue = "";
+    private string userInput = "";
+    private string searchInput = "";
+    private string normalInput = "";
+    private string disabledInput = "Disabled value";
+    private string errorInput = "";
+    private string smallInput = "";
+    private string mediumInput = "";
+    private string largeInput = "";
+
+    private List<string> errorMessages = new() { "This field has an error" };
+}

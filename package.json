@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Build tools for RedSpartan UI",
   "scripts": {
-    "build-css": "sass src/RedSpartan.UI/Styles/main.scss src/RedSpartan.UI/wwwroot/css/redspartan.css --style=expanded --source-map --watch",
-    "build-css-prod": "sass src/RedSpartan.UI/Styles/main.scss src/RedSpartan.UI/wwwroot/css/redspartan.min.css --style=compressed --no-source-map"
+  "build-css": "sass src/RedSpartan.UI/Styles/main.scss src/RedSpartan.UI.Demo/wwwroot/css/app.css --style=expanded --source-map --watch",
+  "build-css-prod": "sass src/RedSpartan.UI/Styles/main.scss src/RedSpartan.UI.Demo/wwwroot/css/redspartan.min.css --style=compressed --no-source-map"
   },
   "devDependencies": {
     "sass": "^1.69.0"

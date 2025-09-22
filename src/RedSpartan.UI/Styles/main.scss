@@ -1,0 +1,18 @@
+﻿// RedSpartan UI Main Stylesheet
+// This file imports all component styles and compiles them into app.css
+
+// Design tokens, functions, mixins first
+@import 'abstracts/tokens';
+// @import 'abstracts/mixins';
+// @import 'abstracts/functions';
+
+// Base layer (themes, typography, reset, etc.)
+@import 'base/themes';
+@import 'base/typography';
+
+// Components
+@import 'components/buttons';
+@import 'components/inputs';
+
+// Utilities last (so they can override components)
+@import 'utilities/utilities';

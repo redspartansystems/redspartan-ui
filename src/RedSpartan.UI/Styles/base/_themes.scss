@@ -1,0 +1,115 @@
+// =============================================================================
+// _themes.scss - Light/Dark Theme Definitions
+// =============================================================================
+
+// Light Theme (Default)
+:root {
+  --rs-bg-primary: var(--rs-neutral-0);
+  --rs-bg-secondary: var(--rs-neutral-50);
+  --rs-bg-tertiary: var(--rs-neutral-100);
+
+  --rs-text-primary: var(--rs-neutral-900);
+  --rs-text-secondary: var(--rs-neutral-600);
+  --rs-text-tertiary: var(--rs-neutral-500);
+  --rs-text-inverse: var(--rs-neutral-0);
+
+  --rs-border-primary: var(--rs-neutral-200);
+  --rs-border-secondary: var(--rs-neutral-300);
+  --rs-border-focus: var(--rs-primary-500);
+
+  --rs-surface-raised: var(--rs-neutral-0);
+  --rs-surface-overlay: var(--rs-neutral-0);
+}
+
+// Dark Theme
+[data-theme="dark"] {
+  --rs-bg-primary: var(--rs-neutral-900);
+  --rs-bg-secondary: var(--rs-neutral-800);
+  --rs-bg-tertiary: var(--rs-neutral-700);
+
+  --rs-text-primary: var(--rs-neutral-100);
+  --rs-text-secondary: var(--rs-neutral-300);
+  --rs-text-tertiary: var(--rs-neutral-400);
+  --rs-text-inverse: var(--rs-neutral-900);
+
+  --rs-border-primary: var(--rs-neutral-700);
+  --rs-border-secondary: var(--rs-neutral-600);
+  --rs-border-focus: var(--rs-primary-400);
+
+  --rs-surface-raised: var(--rs-neutral-800);
+  --rs-surface-overlay: var(--rs-neutral-850);
+}
+
+// Theme switching utility
+.rs-theme-transition {
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+// =============================================================================
+// _typography.scss - Typography Scale & Utilities
+// =============================================================================
+
+// Base Typography Settings
+body {
+  font-family: var(--rs-font-sans);
+  font-size: var(--rs-text-base);
+  line-height: var(--rs-leading-normal);
+  color: var(--rs-text-primary);
+  background-color: var(--rs-bg-primary);
+  transition: var(--rs-transition-colors);
+}
+
+// Typography Classes
+.rs-text-xs { font-size: var(--rs-text-xs); }
+.rs-text-sm { font-size: var(--rs-text-sm); }
+.rs-text-base { font-size: var(--rs-text-base); }
+.rs-text-lg { font-size: var(--rs-text-lg); }
+.rs-text-xl { font-size: var(--rs-text-xl); }
+.rs-text-2xl { font-size: var(--rs-text-2xl); }
+.rs-text-3xl { font-size: var(--rs-text-3xl); }
+.rs-text-4xl { font-size: var(--rs-text-4xl); }
+.rs-text-5xl { font-size: var(--rs-text-5xl); }
+
+// Font Weights
+.rs-font-light { font-weight: var(--rs-font-light); }
+.rs-font-normal { font-weight: var(--rs-font-normal); }
+.rs-font-medium { font-weight: var(--rs-font-medium); }
+.rs-font-semibold { font-weight: var(--rs-font-semibold); }
+.rs-font-bold { font-weight: var(--rs-font-bold); }
+.rs-font-extrabold { font-weight: var(--rs-font-extrabold); }
+
+// Line Heights
+.rs-leading-none { line-height: var(--rs-leading-none); }
+.rs-leading-tight { line-height: var(--rs-leading-tight); }
+.rs-leading-snug { line-height: var(--rs-leading-snug); }
+.rs-leading-normal { line-height: var(--rs-leading-normal); }
+.rs-leading-relaxed { line-height: var(--rs-leading-relaxed); }
+.rs-leading-loose { line-height: var(--rs-leading-loose); }
+
+// Text Colors
+.rs-text-primary { color: var(--rs-text-primary); }
+.rs-text-secondary { color: var(--rs-text-secondary); }
+.rs-text-tertiary { color: var(--rs-text-tertiary); }
+.rs-text-inverse { color: var(--rs-text-inverse); }
+
+// Heading Styles
+.rs-heading-1 {
+  font-size: var(--rs-text-4xl);
+  font-weight: var(--rs-font-bold);
+  line-height: var(--rs-leading-tight);
+  color: var(--rs-text-primary);
+}
+
+.rs-heading-2 {
+  font-size: var(--rs-text-3xl);
+  font-weight: var(--rs-font-semibold);
+  line-height: var(--rs-leading-tight);
+  color: var(--rs-text-primary);
+}
+
+.rs-heading-3 {
+  font-size: var(--rs-text-2xl);
+  font-weight: var(--rs-font-semibold);
+  line-height: var(--rs-leading-snug);
+  color: var(--rs-text-primary);
+}
